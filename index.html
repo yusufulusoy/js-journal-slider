@@ -1,0 +1,29 @@
+<div id="catalog_content" class="catalog__detail-content">
+  <div>
+    <button id="flipleft" class="catalog__arrow-left">
+      <span class="icon-left-chevron"></span>
+    </button>
+    <button id="flipright" class="catalog__arrow-right">
+      <span class="icon-right-chevron"></span>
+    </button>
+  </div>
+  <div id="bookflip"></div>
+  <div id="flippages" style="width:1px;height:1px;overflow:hidden;">
+    {% for page in wa.pages %}
+      <div style="position:relative;background-image: url('{{ page.kwargs.value.image.url }}');">
+        {% set page_index = loop.index %}
+        {% for pin in wa.pins %}
+          {% if pin.value.page == page_index|string %}
+            <div class="catalog__pin" style="position:absolute; top: {{ pin.value.position_x }}%; left: {{ pin.value.position_y }}%">
+              <div class="catalog__pin-title">{{ pin.value.title }}</div>
+              <div class="catalog__pin-desc">{{ pin.value.description }}</div>
+              <div class="catalog__pin-price">{{ pin.value.price }}</div>
+              <a href="{{ pin.value.product_url }}" class="catalog__pin-btn btn btn-sm">{{ pin.value.button_text }}</a>
+
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
